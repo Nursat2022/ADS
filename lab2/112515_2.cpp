@@ -3,7 +3,6 @@
 using namespace std;
 
 bool ok = true;
-int size = 0;
 
 struct Node{
     string word;
@@ -12,15 +11,30 @@ struct Node{
 
     Node(string word){
         this->word = word;
-        next = nullptr; 
-        prev = nullptr;
+        this -> next = nullptr; 
+        this -> prev = nullptr;
     }
 };
 
+
 class Linkedlist{
-    Node * head = nullptr;
-    Node * tail = nullptr;
 public:
+    Node * head;
+    Node * tail;
+    int size = 0;
+
+    Linkedlist(){
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    Node * find(int n){
+        Node * cur = head;
+        while(--n){
+            cur = cur -> next;
+        }
+        return cur;
+    }
 
     void push(int n, string word){
         Node * newNode = new Node(word);
@@ -46,19 +60,12 @@ public:
                 head = newNode;
             }
         }
-    }
-
-    Node * find(int n){
-        Node * cur = head;
-        while(--n){
-            cur = cur -> next;
-        }
-        return cur;
+        size++;
     }
 
     void remove(int n){
         Node * need = find(n);
-        if(need -> prev && need -> next != nullptr){
+        if(need -> prev && need -> next){
             need -> prev -> next = need -> next;
             need -> next -> prev = need -> prev;
         }
@@ -69,19 +76,16 @@ public:
             need -> prev -> next = nullptr;
             tail = need -> prev;
         }
-        else{
+        else{ //need -> prev == nullptr
             need -> next -> prev = nullptr;
             head = need -> next;
         }
+        size--;
     }
 
     void replace(int n, string word){
         Node * need = find(n);
         need -> word = word;
-    }
-
-    bool isempty(){
-        return head == nullptr;
     }
 
     void print(){
@@ -91,7 +95,7 @@ public:
         }
         Node * cur = head;
         while(cur != nullptr){
-            cout << cur -> word << endl;
+            cout << cur -> word << " " << endl;
             cur = cur -> next;
         }
     }
@@ -109,29 +113,26 @@ int main(){
         getline(cin, s);
         s.erase(0, 1);
         if(z == '+'){
-            if(x > size + 1){
+            if(x > list.size + 1){
                 cout << "ERROR";
                 return 0;
             }
             list.push(x, s);
-            size++;
         }
         else if(z == '-'){
-            if(x > size || size <= 0){
+            if(x > list.size || list.size <= 0){
                 cout << "ERROR";
                 return 0;
             }
             else list.remove(x);
-            size--;
         }
         else if(z == '*'){
-            if(x > size || size == 0){
+            if(x > list.size || list.size == 0){
                 cout << "ERROR";
                 return 0;
             }
             list.replace(x, s);
         }
     }
-    if(size == 0) cout << "EMPTY";
-    else list.print();
+    list.print();
 }

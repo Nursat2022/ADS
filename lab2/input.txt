@@ -3,3 +3,4 @@
 +2 She is a pupil.
 +3 This is a pupil.
 *2 Bob went home.
+-3
