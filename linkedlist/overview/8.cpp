@@ -23,14 +23,12 @@ public:
 
     void pushBack(int val){
         Node * newNode = new Node(val);
-        if(head == nullptr){
-            head = newNode;
-        }
+        if(head == nullptr) head = newNode;
         else{
             Node * cur = head;
             while(cur != nullptr){
                 if(cur -> next == nullptr){
-                    cur -> next = newNode;      
+                    cur -> next = newNode;
                     break;
                 }
                 cur = cur -> next;
@@ -43,18 +41,15 @@ public:
         Node * newNode = new Node(val);
         newNode -> next = head;
         head = newNode;
-        size++;
     }
 
     void add(int pos, int val){
         if(pos > size){
-            cout << "NO such pos";
+            cout << "can't add";
             return;
         }
         Node * newNode = new Node(val);
-        if(head == nullptr){
-            head = newNode;
-        }
+        if(head == nullptr) head = newNode;
         else{
             Node * cur = head;
             int i = 1;
@@ -68,23 +63,35 @@ public:
                 i++;
             }
         }
-        size++;
     }
 
     void insert(int pos, int val){
         if(pos > size){
-            cout << "No such pos";
+            cout << "can't insert";
             return;
         }
         Node * cur = head;
         int i = 1;
         while(cur != nullptr){
-            if(i == pos){
-                cur -> val = val;
-                break;
-            }
+            if(i == pos) cur -> val = val;
             cur = cur -> next;
             i++;
+        }
+    }
+
+    void reverse(){
+        vector<int> v;
+        Node * cur = head;
+        while(cur != nullptr){
+            v.push_back(cur -> val);
+            cur = cur -> next;
+        }
+        cur = head;
+        int index = v.size()-1;
+        while(cur != nullptr){
+            cur -> val = v[index];
+            cur = cur -> next;
+            index--;
         }
     }
 
@@ -100,8 +107,31 @@ public:
             Node * cur = head;
             Node * prev = nullptr;
             while(cur != nullptr){
-                
+                if(cur -> val == val){
+                    prev -> next = cur -> next;
+                    delete cur;
+                    return;
+                }
+                prev = cur;
+                cur = cur -> next;
             }
+            cout << "no such pos";
+        }
+        size--;
+    }
+
+    void sort(){
+        Node * first = head;
+        Node * second = nullptr;
+        while(first -> next != nullptr){
+            second = first -> next;
+            while(second != nullptr){
+                if(first -> val > second -> val){
+                    swap(first -> val, second -> val);
+                }
+                second = second -> next;
+            }
+            first = first -> next;
         }
     }
 
@@ -116,10 +146,18 @@ public:
 
 int main(){
     Linkedlist list;
-    int n; cin >> n;
-    for(int i = 0; i < n; i++){
-        int x; cin >> x;
-        list.pushBack(x);
-    }
+    list.pushBack(5);
+    list.pushBack(6);
+    list.pushBack(47);
+    list.pushBack(48);
+    list.print();
+    cout << endl;
+    list.pushFront(14);
+    list.print();
+    cout << endl;
+    list.add(3, 1234);
+    list.print();
+    cout << endl;
+    list.del(1234);
     list.print();
 }
