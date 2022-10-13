@@ -58,6 +58,10 @@ public:
         return ans;
     }
 
+    unsigned long long getMin(){
+        return a[1];
+    }
+
     void print(){
         for(int i = 1; i <= size; i++){
             cout << a[i] << " ";
@@ -65,22 +69,41 @@ public:
         cout << endl;
     }
 
+    void change(int pos, int val){
+        if(val > a[pos]){
+            a[pos] = val;
+        }
+        else if(val < a[pos]){
+            a[pos] = val;
+            sift_down(pos);
+        }
+    }
+
 };
 
 int main(){
     Heap h;
-    int n; cin >> n;
+    unsigned long long n, k;
+    cin >> n >> k;
+    unsigned long long sum = 0;
     for(int i = 0; i < n; i++){
-        unsigned long long x; cin >> x;
-        h.insert(x);
+        string s; unsigned long long num;
+        cin >> s;
+        if(s == "insert"){
+            cin >> num;
+            if(h.size < k){
+                h.insert(num);
+                sum += num;
+            }
+            else{
+                if(h.getMin() < num){
+                    sum -= h.getMin();
+                    h.extractMin();
+                    h.insert(num);
+                    sum += num;
+                }
+            }
+        }
+        else cout << sum << endl;
     }
-
-    unsigned long long cost = 0;
-    while(h.size > 1){
-        unsigned long long mn = h.extractMin();
-        unsigned long long smn = h.extractMin();
-        h.insert(mn + smn);
-        cost += mn + smn;
-    }
-    cout << cost;
 }
