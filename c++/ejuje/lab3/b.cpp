@@ -29,4 +29,5 @@ int main(){
         else r = mid;
     }     
     cout << r;
+    
 }

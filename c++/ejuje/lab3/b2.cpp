@@ -28,6 +28,7 @@ int main() {
     while(l + 1 < r) { 
         long long mid = (l + r)/2; 
         long long num = result(v, mid); 
+        cout << l << " " << r << " " << mid << " " << num << endl;
         if(num > k) l = mid; 
         else r = mid;
     } 

@@ -10,7 +10,6 @@ struct Pasture{
 int getPasturesCount(vector<Pasture> &pastures, int x) { 
     int res = 0; 
     for(auto &pasture : pastures) { 
-        cout << pasture.x1 << " " << pasture.y1 << " " << pasture.x2 << " " << pasture.y2 << endl;
         if(pasture.x1 <= x && pasture.y1 <= x && pasture.x2 <= x && pasture.y2 <= x) 
             res++; 
     } 
@@ -23,7 +22,7 @@ int main() {
     cin >> n >> k; 
  
     vector<Pasture> pastures(n); 
-    for(auto & pasture : pastures) { 
+    for(auto &pasture : pastures) { 
         cin >> pasture.x1 >> pasture.y1 >> pasture.x2 >> pasture.y2; 
     } 
  
