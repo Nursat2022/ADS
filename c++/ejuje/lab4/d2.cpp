@@ -15,7 +15,7 @@ struct Node{
 class BST{
 private:
     Node * root;
-    int cnt = 0;
+    map<int, int> levelSum;
 
     Node * push(Node * cur, int val){
         if(cur == nullptr) return new Node (val);
@@ -29,15 +29,12 @@ private:
         return max(height(cur -> left), height(cur -> right)) + 1;
     } 
 
-    void levels(Node* cur, int level) {
-    if (!cur) return;
-    if (level == 0) cout << cur -> val << " ";
-    else {
-        levels(cur -> left, level - 1);
-        levels(cur -> right, level - 1);
+    void getLevelsSum(Node* cur, int level) {
+        if (!cur) return;
+        levelSum[level] += cur -> val;
+        getLevelsSum(cur -> right, level + 1);
+        getLevelsSum(cur -> left, level + 1);
     }
-}
-
 public:
     BST(){
         root = nullptr;
@@ -51,16 +48,17 @@ public:
         return height(root);
     }
 
-    void levels(){
-        int h = height();
-        cout << h << "\n";
-        for(int i = 0; i < h; i++){
-            levels(root, i);
-            cout << cnt << " ";
-            cnt = 0;
-        }
+    void getLevelsSum(){
+        getLevelsSum(root, 0);
     }
 
+    vector<int> res(){
+        vector<int> ans;
+        for(auto i : levelSum){
+            ans.push_back(i.second);
+        }
+        return ans;
+    }
 };
 
 int main(){
@@ -70,5 +68,6 @@ int main(){
         int x; cin >> x;
         tree.push(x);
     }
-    tree.levels();
+    tree.getLevelsSum();
+    for(auto i : tree.res()) cout << i << " ";
 }

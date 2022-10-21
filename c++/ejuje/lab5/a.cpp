@@ -30,7 +30,7 @@ public:
     }
 
     void sift_up(int i){
-        while(i > 1 && a[parent(i)] > a[i]){
+        while(i > 1 && a[parent(i)] < a[i]){
             swap(a[parent(i)], a[i]);
             i = parent(i);
         }

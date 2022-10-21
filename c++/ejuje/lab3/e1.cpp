@@ -30,6 +30,7 @@ int main() {
  
     while(l + 1 < r) { 
         int mid = (l+r)/2; 
+        cout << l << " " << r << " " << mid << endl;
         if(getPasturesCount(pastures, mid) >= k) 
             r = mid; 
         else 
