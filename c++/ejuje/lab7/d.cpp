@@ -18,24 +18,24 @@ bool cmp(Student s1, Student s2){
     return s1.overall < s2.overall;
 }
 
-int partition(vector<Student> &st, int low, int high){
-    Student pivot = st[high];
-    int i = low - 1;  
-    for(int j = low; j < high; j++){
-        if(cmp(st[j], pivot)){
-            i++;
-            swap(st[j], st[i]);
-        }
+void merge(vector<Student> &st, int l, int mid, int r){
+    int i = l, j = mid + 1, k = l;
+    Student a[r + 1];
+    while(i <= mid && j <= r){
+        if(cmp(st[i], st[j])) a[k++] = st[i++];
+        else a[k++] = st[j++];
     }
-    swap(st[i + 1], st[high]);
-    return i + 1;
+    while(i <= mid) a[k++] = st[i++];
+    while(j <= r) a[k++] = st[j++];
+    for(int i = l; i <= r; i++) st[i] = a[i];
 }
 
-void quickSort(vector<Student> &st, int low, int high){
-    if(low < high){
-        int pi = partition(st, low, high);
-        quickSort(st, low, pi - 1);
-        quickSort(st, pi + 1, high);
+void mergeSort(vector<Student> &st, int l, int r){
+    if(l < r){
+        int mid = l + (r - l)/2;
+        mergeSort(st, l, mid);
+        mergeSort(st, mid + 1, r);
+        merge(st, l, mid, r);
     }
 }
 
@@ -65,8 +65,8 @@ int main(){
         }
         student.overall = sum/sum2;
     }
-    quickSort(st, 0, st.size()-1);
-    for(auto i : st){
+    mergeSort(st, 0, st.size()-1);
+    for(auto &i : st){
         cout << i.surname << " " << i.name << " " << fixed << setprecision(3) << i.overall << endl;
     }
 }

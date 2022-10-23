@@ -2,24 +2,24 @@
 
 using namespace std;
 
-int partition(int a[], int low, int high){
-    int pivot = a[high];
-    int i = low - 1;
-    for(int j = low; j < high; j++){
-        if(a[j] < pivot){
-            i++;
-            swap(a[i], a[j]);
-        }
+void merge(int a[], int l, int mid, int r){
+    int i = l, j = mid + 1, k = l;
+    int b[r + 1];
+    while(i <= mid && j <= r){
+        if(a[i] < a[j]) b[k++] = a[i++];
+        else b[k++] = a[j++];
     }
-    swap(a[i + 1], a[high]);
-    return i + 1;
+    while(i <= mid) b[k++] = a[i++];
+    while(j <= r) b[k++] = a[j++];
+    for(int i = l; i <= r; i++) a[i] = b[i];
 }
 
-void quickSort(int a[], int low, int high){
-    if(low < high){
-        int pi = partition(a, low, high);
-        quickSort(a, low, pi - 1);
-        quickSort(a, pi + 1, high);
+void mergeSort(int a[], int l, int r){
+    if(l < r){
+        int mid = l + (r - l)/2;
+        mergeSort(a, l, mid);
+        mergeSort(a, mid + 1, r);
+        merge(a, l, mid, r);
     }
 }
 
@@ -46,9 +46,9 @@ int main(){
     vector<bool> b(m, true);
     for(int i = 0; i < n; i++) cin >> a1[i];
     for(int i = 0; i < m; i++) cin >> a2[i];
-    quickSort(a1, 0, n - 1);
-    quickSort(a2, 0, m - 1);
-    
+    mergeSort(a1, 0, n - 1);
+    mergeSort(a2, 0, m - 1);
+
     for(int i = 0; i < n; i++){
         if(search(a2, -1, m-1, a1[i], b)) cout << a1[i] << " ";
     }
