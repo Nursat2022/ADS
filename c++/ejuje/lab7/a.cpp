@@ -8,7 +8,7 @@ bool cmp(string a, string b, int i, int j){
     }
     return a.size() < b.size();
 }
-
+cout << "yes";
 void merge(vector<string> &v, int l, int mid, int r){
     int i, j, k;
     i = l;
