@@ -32,14 +32,12 @@ public:
         }
     }
 
-    void check(int i){
-        int l = left(i);
-        int r = right(i);
-        if(l > size) return;
-        if(r <= size){
-            if(a[r] > a[l]) cnt++; 
-            check(l);
-            check(r);
+void func(){
+        for(int i = 1; i <= size; i++){
+            if(left(i) > size) return;
+            if(right(i) <= size){
+                if(right(i) > left(i)) cnt++;
+            }
         }
     }
 
@@ -57,6 +55,6 @@ int main(){
         int x; cin >> x;
         h.insert(x);
     }
-    h.check(1);
+    h.func();
     cout << cnt;
 }

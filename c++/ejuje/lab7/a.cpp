@@ -8,7 +8,7 @@ bool cmp(string a, string b, int i, int j){
     }
     return a.size() < b.size();
 }
-cout << "yes";
+
 void merge(vector<string> &v, int l, int mid, int r){
     int i, j, k;
     i = l;
@@ -49,8 +49,8 @@ void mergeSort(vector<string> &v, int l, int r){
 int main(){
     int n; cin >> n;
     vector<vector<string>> v;
-    for(int j = 0; j < n+1; j++){
-        string s; getline(cin, s);
+    for(int j = 0; j < n; j++){
+        string s; getline(cin >> cw, s);
         string tmp = "";
         vector<string> row;
         for(int i = 0; i < s.size(); i++){
@@ -60,7 +60,6 @@ int main(){
                 tmp = "";
             }
         }
-        if(j == 0) continue;
         v.push_back(row);
     }
 
