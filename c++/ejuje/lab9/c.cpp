@@ -7,11 +7,8 @@ using namespace std;
 vector<int> prefix_function(string s){
     int n = (int) s.length();
     vector<int> pi(n);
-    // for(auto i : pi) cout << i << " ";
-    // cout << endl;
     for(int i = 1;  i < n; i++){
         int j = pi[i-1];
-        // cout << i << " " << j << endl;
         while(j > 0 && s[i] != s[j]){
             j = pi[j-1];
         }
@@ -24,11 +21,12 @@ vector<int> prefix_function(string s){
 int main(){
     string s, t;
     cin >> s >> t;
-    string st = t + '#' + s;
-    vector<int> p = prefix_function(st);
-    for(int i = 0; i < st.size(); i++){
-        if(p[i] == t.size()){
-            cout << i - 2 * t.size() << " ";
+    vector<int> v = prefix_function(s + '#' + t + t);
+    for(int i = 0; i <v.size(); i++){
+        if(v[i] == s.size()){
+            cout << i - 2 * s.size();
+            return 0;
         }
     }
+    cout << -1;
 }

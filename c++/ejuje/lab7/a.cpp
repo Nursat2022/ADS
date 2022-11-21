@@ -49,8 +49,8 @@ void mergeSort(vector<string> &v, int l, int r){
 int main(){
     int n; cin >> n;
     vector<vector<string>> v;
-    for(int j = 0; j < n; j++){
-        string s; getline(cin >> cw, s);
+    for(int j = 0; j < n+1; j++){
+        string s; getline(cin, s);
         string tmp = "";
         vector<string> row;
         for(int i = 0; i < s.size(); i++){
@@ -60,6 +60,7 @@ int main(){
                 tmp = "";
             }
         }
+        if(j == 0) continue;
         v.push_back(row);
     }
 
