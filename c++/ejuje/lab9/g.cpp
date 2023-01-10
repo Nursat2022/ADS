@@ -20,7 +20,7 @@ vector<int> prefix_function(string s){
 
 int main(){
     string s; cin >> s;
-    // for(auto i : prefix_function(s)) cout << i << " ";
+    for(auto i : prefix_function(s)) cout << i << " ";
     vector<int> v = prefix_function(s);
     cout << v.size() - v[v.size()-1];
 }

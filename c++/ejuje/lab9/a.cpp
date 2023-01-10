@@ -1,15 +1,14 @@
 #include<iostream>
 #include<vector>
 #include<string>
-#define ll long long
 
 using namespace std;
 
-vector<ll> prefix_function(string &s){
+vector<int> prefix_function(string &s){
     int n = (int) s.length();
-    vector<ll> pi(n);
+    vector<int> pi(n);
     for(int i = 1;  i < n; i++){
-        ll j = pi[i-1];
+        int j = pi[i-1];
         while(j > 0 && s[i] != s[j]){
             j = pi[j-1];
         }
@@ -19,36 +18,27 @@ vector<ll> prefix_function(string &s){
     return pi;
 }
 
-bool kmp(string &s, string &t){
-    string st = t + '#' + s;
+bool kmp(string &t, string &s){
+    string st = s + '#' + t;
+    // cdabcdab#abcdabcd
     int cnt = 0;
-    vector<ll> p = prefix_function(st);
+    vector<int> p = prefix_function(st);
     for(int i = 0; i < st.size(); i++){
-        if(p[i] == t.size()) cnt++;
+        if(p[i] == s.size()) return true;
     }
-    return cnt;
+    return false;
 }
 
 int main(){
-    string a, b;
-    cin >> a >> b;
-    int l = 0, r = 100000;
-
-   while(l + 1 < r){
-        int mid = l + (r - l)/2;
-        bool ok = true;
-        string t = a;
-        for(int i = 1; i <= mid; i++){
-            t += a;
-        }
-        int num =  kmp(t, b);
-        if(num >= 2) r = mid; 
-        else if(num == 1){
-            cout << t.size() << " " << a.size() << "\n";
-            cout << t.size() / a.size();
-            return 0;
-        }
-        else l = mid;
-   }
-    cout << -1;
+    string t, s;
+    cin >> t >> s;
+    string t_copy = t;
+    while(t.size() < s.size()) t += t_copy;
+    if(!kmp(t, s)){
+        t += t_copy;
+        if(!kmp(t, s)) cout << -1;
+        else cout << t.size()/t_copy.size();
+    }
+    else cout << t.size()/t_copy.size();
 }
+

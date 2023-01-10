@@ -29,10 +29,10 @@ int main(){
         tlow[0] = tolower(tlow[0]);
         str.push_back(make_pair(make_pair(t, tlow), 0));
     }
-    ll mx = 0;
+    ll mx = -1;
     for(int i = 0; i < str.size(); i++){
         vector<ll> v = prefix_function(str[i].first.second + '#' + s);
-        if(v[v.size()-1] > mx) mx = v[v.size()-1];
+        if(v[v.size()-1] > 0 && v[v.size()-1] > mx) mx = v[v.size()-1];
         str[i].second = v[v.size()-1];
     }
     vector<string> ans;

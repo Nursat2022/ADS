@@ -5,7 +5,7 @@ using namespace std;
 int gcd1(int mx, int mn){
 
     if(mx % mn == 0) return mn;   
-    
+
     return gcd1(mn, mx % mn);
 }
 

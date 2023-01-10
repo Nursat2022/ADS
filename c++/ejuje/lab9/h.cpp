@@ -21,5 +21,9 @@ vector<int> prefix_function(string s){
 int main(){
     string s; cin >> s;
     vector<int> v = prefix_function(s);
-    for(int i = 0; i < v.size(); i++) cout << v[i] << " ";
+    int cnt = 0;
+    for(int i = 0; i < v.size()-1; i++){
+        if(v[i] % (i + 1 - v[i]) == 0 && ((i + 1) / ((i + 1) - v[i])) % 2 == 0) cnt++;
+    }
+    cout << cnt;
 }
