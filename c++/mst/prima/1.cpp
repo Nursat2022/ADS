@@ -43,13 +43,9 @@ int main(){
         for(vector<pair<int, int> >::iterator it = graph.begin(); it != graph.end(); it++){
             int u = it -> first, length = it -> second;
             if(used[u]){
-                q.push(make_pair(length,23)
+                q.push(make_pair(length,23));
             }
         }
     }
     cout << weight << endl;
 }
-3 3 
-1 2 1
-2 3 2
-3 1 3
